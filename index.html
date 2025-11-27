@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAVING CHRISTMAS // RESTRICTED</title>
+    <title>RESTRICTED ARCHIVES</title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -64,8 +64,8 @@
 
         /* --- HEADERS --- */
         h1 {
-            text-shadow: 0 0 10px var(--hacker-green), 0 0 20px var(--xmas-red);
-            border-bottom: 2px solid var(--xmas-red);
+            text-shadow: 0 0 10px var(--hacker-green);
+            border-bottom: 2px solid var(--hacker-green);
             padding-bottom: 10px;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -73,38 +73,37 @@
             line-height: 1.2;
             z-index: 2;
             margin-top: 0;
+            margin-bottom: 30px;
         }
 
+        /* --- INFO TEXT --- */
         .main-countdown {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--xmas-red);
-            border: 1px solid var(--xmas-red);
-            padding: 15px 30px;
             margin-bottom: 20px;
-            background: rgba(20, 0, 0, 0.6);
-            box-shadow: 0 0 15px rgba(255, 50, 50, 0.3);
             text-align: center;
             z-index: 2;
-            border-radius: 5px;
+            text-shadow: 0 0 15px var(--xmas-red);
         }
 
         .system-status {
-            margin-bottom: 40px;
-            font-size: 1.0rem;
+            margin-bottom: 50px;
+            font-size: 1.1rem;
             text-align: center;
-            border: 1px solid var(--hacker-green);
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
-            background: rgba(0, 20, 0, 0.8);
-            max-width: 600px;
             z-index: 2;
+            line-height: 1.6;
         }
 
         .agent-name {
             color: #fff;
             font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: 0 0 5px var(--hacker-green);
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px var(--hacker-green);
+        }
+
+        .mission-text {
+            color: var(--hacker-green);
+            opacity: 0.9;
         }
 
         /* --- CARDS --- */
@@ -134,7 +133,7 @@
         .terminal-card.wide-card {
             width: 100%;
             max-width: 800px; 
-            border-color: var(--xmas-red); /* Video is special/red */
+            border-color: var(--xmas-red); 
         }
 
         .header-bar {
@@ -148,7 +147,7 @@
         }
 
         .wide-card .header-bar {
-            background-color: var(--xmas-red); /* Red Header for video */
+            background-color: var(--xmas-red);
         }
 
         .image-viewport {
@@ -202,6 +201,7 @@
             font-size: 1.2rem;
             color: var(--hacker-green);
             margin-bottom: 15px;
+            font-weight: bold;
         }
 
         /* --- INPUTS --- */
@@ -248,7 +248,35 @@
         button:hover { background: var(--hacker-green); color: black; }
         .wide-card button:hover { background: var(--xmas-red); color: black; }
 
-        /* Debug Footer */
+        /* --- HACKER TREE STYLES --- */
+        .hacker-tree-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: 'Share Tech Mono', monospace;
+            z-index: 50;
+            pointer-events: none;
+            text-shadow: 0 0 5px var(--hacker-green);
+            line-height: 1.1;
+            font-size: 14px;
+        }
+
+        /* The tree ASCII art container */
+        .tree-art {
+            white-space: pre; /* Keeps the shape of the ASCII */
+            color: var(--hacker-green);
+            font-weight: bold;
+        }
+
+        .tree-star { color: var(--xmas-red); animation: blink 1s infinite; }
+        .tree-bauble { color: var(--xmas-red); animation: blink 2s infinite alternate; }
+        .tree-bauble-2 { color: var(--snow-white); animation: blink 1.5s infinite alternate; }
+        .tree-trunk { color: #555; }
+        .tree-gift { color: var(--xmas-red); display: inline-block; animation: glitch 3s infinite; }
+
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        @keyframes glitch { 0% { transform: skew(0deg); } 20% { transform: skew(-10deg); } 40% { transform: skew(10deg); } 60% { transform: skew(0deg); } }
+
         .debug-log {
             position: fixed;
             bottom: 5px; left: 5px;
@@ -261,23 +289,23 @@
     
     <div id="snow-container"></div>
 
-    <h1>/// SAVING CHRISTMAS: RESTRICTED ARCHIVES ///</h1>
+    <h1>RESTRICTED ARCHIVES</h1>
 
     <div class="main-countdown">
-        <div style="font-size: 0.8rem; margin-bottom:5px;">COUNTDOWN TO CHRISTMAS</div>
+        <div style="font-size: 0.8rem; color: var(--hacker-green); opacity: 0.8; margin-bottom: 5px;">TIME UNTIL CHRISTMAS</div>
         <div id="xmas-timer">CALCULATING...</div>
     </div>
     
     <div class="system-status">
         <div>AGENT: <span class="agent-name">BALLERINA</span></div>
-        <div style="margin-top: 5px;">MISSION: PROTECT THE MAGIC OF CHRISTMAS</div>
+        <div class="mission-text">MISSION: PROTECT THE MAGIC OF CHRISTMAS</div>
     </div>
 
     <div class="container">
         
         <!-- #1 -->
         <div class="terminal-card">
-            <div class="header-bar"><span>EVIDENCE_27_A.JPG</span><span>SECURE</span></div>
+            <div class="header-bar"><span>EVIDENCE_A.JPG</span><span>SECURE</span></div>
             <div class="image-viewport">
                 <div class="lock-interface" id="lock-1">
                     <div class="lock-icon">❄️</div>
@@ -292,7 +320,7 @@
 
         <!-- #2 -->
         <div class="terminal-card">
-            <div class="header-bar"><span>EVIDENCE_27_B.JPG</span><span>SECURE</span></div>
+            <div class="header-bar"><span>EVIDENCE_B.JPG</span><span>SECURE</span></div>
             <div class="image-viewport">
                 <div class="lock-interface" id="lock-2">
                     <div class="lock-icon">❄️</div>
@@ -307,7 +335,7 @@
 
         <!-- #3 -->
         <div class="terminal-card">
-            <div class="header-bar"><span>EVIDENCE_27_C.JPG</span><span>SECURE</span></div>
+            <div class="header-bar"><span>EVIDENCE_C.JPG</span><span>SECURE</span></div>
             <div class="image-viewport">
                 <div class="lock-interface" id="lock-3">
                     <div class="lock-icon">❄️</div>
@@ -337,6 +365,21 @@
 
     </div>
 
+    <!-- HACKER TREE ASCII ART -->
+    <div class="hacker-tree-container">
+<div class="tree-art">
+       <span class="tree-star">★</span>
+      / \
+     / <span class="tree-bauble">o</span> \
+    / <span class="tree-bauble-2">+</span> <span class="tree-bauble">o</span> \
+   /<span class="tree-bauble">o</span> <span class="tree-bauble-2">*</span> <span class="tree-bauble">o</span> <span class="tree-bauble">+</span>\
+  / <span class="tree-bauble-2">+</span> <span class="tree-bauble">o</span> <span class="tree-bauble-2">*</span> <span class="tree-bauble">o</span> \
+ |||||||||||||
+     <span class="tree-trunk">[ ]</span>
+<span class="tree-gift">[=]</span> <span class="tree-gift">[#]</span> <span class="tree-gift">[+]</span> <span class="tree-gift">[=]</span>
+</div>
+    </div>
+
     <div class="debug-log" id="debug">System Initialized.</div>
 
     <script>
@@ -344,59 +387,33 @@
         function createSnow() {
             const container = document.getElementById('snow-container');
             const characters = ['❄', '*', '1', '0', '+'];
-            const colors = ['var(--hacker-green)', 'var(--xmas-red)', 'var(--snow-white)'];
-            
-            // Create a new flake every 100ms
             setInterval(() => {
                 const flake = document.createElement('div');
                 flake.classList.add('snowflake');
-                
-                // Random Character
                 flake.innerText = characters[Math.floor(Math.random() * characters.length)];
-                
-                // Random Position
                 flake.style.left = Math.random() * 100 + 'vw';
-                
-                // Random Size
                 flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                
-                // Random Duration
                 flake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                
-                // Random Color Logic (mostly green, some red/white)
                 const rand = Math.random();
                 if(rand > 0.9) flake.style.color = 'var(--xmas-red)';
                 else if(rand > 0.8) flake.style.color = 'var(--snow-white)';
-                // else default green
-
                 container.appendChild(flake);
-
-                // Remove flake after animation
-                setTimeout(() => {
-                    flake.remove();
-                }, 5000);
+                setTimeout(() => { flake.remove(); }, 5000);
             }, 100);
         }
         createSnow();
 
-
         // --- CONFIGURATION ---
-        // 1. Evidence Times: Nov 27, 2025 (Evidences from "Before")
-        // 2. Main Countdown: Dec 25, 2025 (The Goal)
         const config = [
-            { id: 1, time: "2025-11-27T10:15:00", pass: "potato" },
-            { id: 2, time: "2025-11-27T10:30:00", pass: "banana" },
-            { id: 3, time: "2025-11-27T10:45:00", pass: "iloveyou" },
-            { id: 4, time: "2025-11-27T12:15:00", pass: "movie" } // Future time today so you can see it locked
+            { id: 1, time: "2025-11-27T13:35:00", pass: "potato" },
+            { id: 2, time: "2025-11-27T13:30:00", pass: "banana" },
+            { id: 3, time: "2025-12-25T13:30:00", pass: "iloveyou" },
+            { id: 4, time: "2025-11-27T14:00:00", pass: "movie" } 
         ];
 
         const xmasDate = new Date("2025-12-25T00:00:00").getTime();
 
         // --- LOGIC ---
-
-        function log(msg) {
-            document.getElementById('debug').innerText = "LOG: " + msg;
-        }
 
         function unlock(id) {
             const lock = document.getElementById('lock-' + id);
@@ -411,9 +428,7 @@
             setTimeout(() => {
                 lock.style.display = 'none';
                 asset.style.display = 'block';
-                if(id === 4) {
-                    try { asset.play(); } catch(e) {}
-                }
+                if(id === 4) { try { asset.play(); } catch(e) {} }
             }, 1500);
         }
 
@@ -427,7 +442,7 @@
             } else {
                 const oldP = input.placeholder;
                 input.value = "";
-                input.placeholder = "NAUGHTY LIST"; // Christmas themed error
+                input.placeholder = "NAUGHTY LIST";
                 input.style.borderColor = "var(--xmas-red)";
                 setTimeout(() => {
                     input.placeholder = oldP;
@@ -465,10 +480,14 @@
                     }
                     if (timerEl) timerEl.innerText = "UNLOCKED";
                 } else {
+                    // Calculate Days, Hours, Min, Sec
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     const s = Math.floor((diff % (1000 * 60)) / 1000);
-                    timerEl.innerText = `${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+                    
+                    // Format: 00d 00h 00m 00s
+                    timerEl.innerText = `${d}d ${h<10?'0'+h:h}h ${m<10?'0'+m:m}m ${s<10?'0'+s:s}s`;
                 }
             });
         }
