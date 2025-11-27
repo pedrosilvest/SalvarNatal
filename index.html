@@ -123,6 +123,8 @@
             position: relative;
             box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
             transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
         }
         
         .terminal-card:hover {
@@ -168,6 +170,31 @@
             object-fit: cover;
             display: none; 
             border: none;
+        }
+
+        /* --- VIEW BUTTON (OVERLAY) --- */
+        .view-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 20, 0, 0.8);
+            color: var(--hacker-green);
+            border: none;
+            border-bottom: 1px solid var(--hacker-green);
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: none; /* Hidden until unlocked */
+            z-index: 5; /* Above image, below lock screen (z-10) */
+            transition: 0.3s;
+        }
+
+        .view-btn:hover {
+            background: var(--hacker-green);
+            color: black;
         }
 
         /* --- LOCK SCREEN --- */
@@ -248,6 +275,49 @@
         button:hover { background: var(--hacker-green); color: black; }
         .wide-card button:hover { background: var(--xmas-red); color: black; }
 
+        /* --- LIGHTBOX (THE BOX) --- */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 85%;
+            border: 2px solid var(--hacker-green);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+            background: #000;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 30px;
+            color: var(--xmas-red);
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .lightbox-close:hover { text-shadow: 0 0 10px var(--xmas-red); }
+
         /* --- HACKER TREE STYLES --- */
         .hacker-tree-container {
             position: fixed;
@@ -261,9 +331,8 @@
             font-size: 14px;
         }
 
-        /* The tree ASCII art container */
         .tree-art {
-            white-space: pre; /* Keeps the shape of the ASCII */
+            white-space: pre; 
             color: var(--hacker-green);
             font-weight: bold;
         }
@@ -314,6 +383,8 @@
                     <div class="command-line"><span class="prompt">></span><input type="password" id="input-1" placeholder="PASSWORD"></div>
                     <button onclick="checkPass(1)">UNLOCK</button>
                 </div>
+                <!-- Open Button (Overlays Image) -->
+                <button class="view-btn" id="btn-1" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN_VIEWER ]</button>
                 <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-1">
             </div>
         </div>
@@ -329,6 +400,8 @@
                     <div class="command-line"><span class="prompt">></span><input type="password" id="input-2" placeholder="PASSWORD"></div>
                     <button onclick="checkPass(2)">UNLOCK</button>
                 </div>
+                <!-- Open Button -->
+                <button class="view-btn" id="btn-2" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN_VIEWER ]</button>
                 <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-2">
             </div>
         </div>
@@ -344,11 +417,13 @@
                     <div class="command-line"><span class="prompt">></span><input type="password" id="input-3" placeholder="PASSWORD"></div>
                     <button onclick="checkPass(3)">UNLOCK</button>
                 </div>
+                <!-- Open Button -->
+                <button class="view-btn" id="btn-3" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN_VIEWER ]</button>
                 <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-3">
             </div>
         </div>
 
-        <!-- #4 VIDEO -->
+        <!-- #4 VIDEO (No lightbox for video) -->
         <div class="terminal-card wide-card">
             <div class="header-bar"><span>MISSION_BRIEF.MP4</span><span>TOP SECRET</span></div>
             <div class="image-viewport">
@@ -363,6 +438,14 @@
             </div>
         </div>
 
+    </div>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div class="lightbox-overlay" id="lightbox">
+        <div class="lightbox-content">
+            <div class="lightbox-close" onclick="closeLightbox()">[ X ]</div>
+            <img id="lightbox-img" src="" alt="Full Size">
+        </div>
     </div>
 
     <!-- HACKER TREE ASCII ART -->
@@ -413,11 +496,25 @@
 
         const xmasDate = new Date("2025-12-25T00:00:00").getTime();
 
-        // --- LOGIC ---
+        // --- LIGHTBOX LOGIC ---
+        function openLightbox(url) {
+            const box = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            
+            img.src = url;
+            box.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        // --- MAIN LOGIC ---
 
         function unlock(id) {
             const lock = document.getElementById('lock-' + id);
             const asset = document.getElementById('asset-' + id);
+            const btn = document.getElementById('btn-' + id);
             
             if (!lock || !asset) return;
             if (lock.style.display === 'none') return; 
@@ -428,6 +525,9 @@
             setTimeout(() => {
                 lock.style.display = 'none';
                 asset.style.display = 'block';
+                // Show the "Open Viewer" button
+                if (btn) btn.style.display = 'block';
+                
                 if(id === 4) { try { asset.play(); } catch(e) {} }
             }, 1500);
         }
@@ -480,13 +580,10 @@
                     }
                     if (timerEl) timerEl.innerText = "UNLOCKED";
                 } else {
-                    // Calculate Days, Hours, Min, Sec
                     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     const s = Math.floor((diff % (1000 * 60)) / 1000);
-                    
-                    // Format: 00d 00h 00m 00s
                     timerEl.innerText = `${d}d ${h<10?'0'+h:h}h ${m<10?'0'+m:m}m ${s<10?'0'+s:s}s`;
                 }
             });
