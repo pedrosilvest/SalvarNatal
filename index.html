@@ -172,29 +172,33 @@
             border: none;
         }
 
-        /* --- VIEW BUTTON (OVERLAY) --- */
+        /* --- VIEW BUTTON (HUD STYLE) --- */
         .view-btn {
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             width: 100%;
-            padding: 10px;
-            background: rgba(0, 20, 0, 0.8);
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
             color: var(--hacker-green);
             border: none;
-            border-bottom: 1px solid var(--hacker-green);
+            border-top: 1px solid var(--hacker-green);
             cursor: pointer;
             font-family: 'Share Tech Mono', monospace;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1rem;
             display: none; /* Hidden until unlocked */
-            z-index: 5; /* Above image, below lock screen (z-10) */
-            transition: 0.3s;
+            z-index: 5;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .view-btn:hover {
             background: var(--hacker-green);
             color: black;
+            padding-bottom: 15px; /* Slight lift effect */
+            box-shadow: 0 -5px 15px rgba(0, 255, 65, 0.3);
         }
 
         /* --- LOCK SCREEN --- */
@@ -315,8 +319,15 @@
             color: var(--xmas-red);
             cursor: pointer;
             font-weight: bold;
+            background: #000;
+            padding: 0 10px;
+            border: 1px solid var(--xmas-red);
         }
-        .lightbox-close:hover { text-shadow: 0 0 10px var(--xmas-red); }
+        .lightbox-close:hover { 
+            background: var(--xmas-red);
+            color: #000;
+            box-shadow: 0 0 15px var(--xmas-red);
+        }
 
         /* --- HACKER TREE STYLES --- */
         .hacker-tree-container {
@@ -383,8 +394,8 @@
                     <div class="command-line"><span class="prompt">></span><input type="password" id="input-1" placeholder="PASSWORD"></div>
                     <button onclick="checkPass(1)">UNLOCK</button>
                 </div>
-                <!-- Open Button (Overlays Image) -->
-                <button class="view-btn" id="btn-1" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN_VIEWER ]</button>
+                <!-- Open Button (Bottom Overlay) -->
+                <button class="view-btn" id="btn-1" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN VIEWER ]</button>
                 <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-1">
             </div>
         </div>
@@ -400,8 +411,8 @@
                     <div class="command-line"><span class="prompt">></span><input type="password" id="input-2" placeholder="PASSWORD"></div>
                     <button onclick="checkPass(2)">UNLOCK</button>
                 </div>
-                <!-- Open Button -->
-                <button class="view-btn" id="btn-2" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN_VIEWER ]</button>
+                <!-- Open Button (Bottom Overlay) -->
+                <button class="view-btn" id="btn-2" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN VIEWER ]</button>
                 <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-2">
             </div>
         </div>
@@ -417,13 +428,13 @@
                     <div class="command-line"><span class="prompt">></span><input type="password" id="input-3" placeholder="PASSWORD"></div>
                     <button onclick="checkPass(3)">UNLOCK</button>
                 </div>
-                <!-- Open Button -->
-                <button class="view-btn" id="btn-3" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN_VIEWER ]</button>
+                <!-- Open Button (Bottom Overlay) -->
+                <button class="view-btn" id="btn-3" onclick="openLightbox('https://i.imgur.com/evOMwgx.jpeg')">[ OPEN VIEWER ]</button>
                 <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-3">
             </div>
         </div>
 
-        <!-- #4 VIDEO (No lightbox for video) -->
+        <!-- #4 VIDEO (No lightbox) -->
         <div class="terminal-card wide-card">
             <div class="header-bar"><span>MISSION_BRIEF.MP4</span><span>TOP SECRET</span></div>
             <div class="image-viewport">
