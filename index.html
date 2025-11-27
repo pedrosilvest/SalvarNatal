@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE ACCESS TERMINAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-color: #00ff41;
+            --bg-color: #0d0d0d;
+            --alert-color: #ff3333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--main-color);
+            font-family: 'Share Tech Mono', monospace;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Scanline Overlay */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 100;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        h1 {
+            text-shadow: 0 0 10px var(--main-color);
+            border-bottom: 2px solid var(--main-color);
+            padding-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .system-status {
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            z-index: 1;
+            max-width: 1400px;
+        }
+
+        /* CARD STYLES */
+        .terminal-card {
+            border: 1px solid var(--main-color);
+            background-color: #000;
+            width: 320px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+        }
+
+        /* VIDEO CARD STYLE */
+        .terminal-card.wide-card {
+            width: 100%;
+            max-width: 800px; /* Bigger video window */
+        }
+
+        .header-bar {
+            background-color: var(--main-color);
+            color: #000;
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .image-viewport {
+            height: 300px;
+            width: 100%;
+            position: relative;
+            background: #050505;
+        }
+
+        /* Widescreen viewport for video */
+        .wide-card .image-viewport {
+            height: auto;
+            aspect-ratio: 16/9;
+        }
+
+        .image-viewport img, .image-viewport video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Hidden until unlocked */
+            border: none;
+        }
+
+        /* LOCK SCREEN OVERLAY */
+        .lock-interface {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .lock-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: var(--alert-color);
+        }
+
+        .status-text {
+            color: var(--alert-color);
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            color: var(--main-color);
+            margin-bottom: 15px;
+        }
+
+        /* INPUTS */
+        .command-line {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--main-color);
+            margin-top: 5px;
+            width: 80%;
+        }
+
+        .prompt { margin-right: 5px; }
+
+        input {
+            background: transparent;
+            border: none;
+            color: var(--main-color);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            text-transform: uppercase; 
+        }
+
+        button {
+            margin-top: 15px;
+            background: transparent;
+            border: 1px solid var(--main-color);
+            color: var(--main-color);
+            font-family: 'Share Tech Mono', monospace;
+            padding: 5px 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: var(--main-color);
+            color: black;
+        }
+
+        /* Debug Footer */
+        .debug-log {
+            position: fixed;
+            bottom: 5px;
+            left: 5px;
+            font-size: 10px;
+            opacity: 0.5;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>/// RESTRICTED ARCHIVES ///</h1>
+    <div class="system-status">
+        CURRENT TIME: <span id="clock">Loading...</span><br>
+        PROTOCOL: NO-PERSISTENCE
+    </div>
+
+    <div class="container">
+        
+        <!-- #1 -->
+        <div class="terminal-card">
+            <div class="header-bar"><span>IMG_01.JPG</span><span>LOCKED</span></div>
+            <div class="image-viewport">
+                <div class="lock-interface" id="lock-1">
+                    <div class="lock-icon">⚠️</div>
+                    <div class="status-text">ENCRYPTED</div>
+                    <div class="timer" id="timer-1">Loading...</div>
+                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-1" placeholder="PASSWORD"></div>
+                    <button onclick="checkPass(1)">UNLOCK</button>
+                </div>
+                <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-1">
+            </div>
+        </div>
+
+        <!-- #2 -->
+        <div class="terminal-card">
+            <div class="header-bar"><span>IMG_02.JPG</span><span>LOCKED</span></div>
+            <div class="image-viewport">
+                <div class="lock-interface" id="lock-2">
+                    <div class="lock-icon">⚠️</div>
+                    <div class="status-text">ENCRYPTED</div>
+                    <div class="timer" id="timer-2">Loading...</div>
+                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-2" placeholder="PASSWORD"></div>
+                    <button onclick="checkPass(2)">UNLOCK</button>
+                </div>
+                <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-2">
+            </div>
+        </div>
+
+        <!-- #3 -->
+        <div class="terminal-card">
+            <div class="header-bar"><span>IMG_03.JPG</span><span>LOCKED</span></div>
+            <div class="image-viewport">
+                <div class="lock-interface" id="lock-3">
+                    <div class="lock-icon">⚠️</div>
+                    <div class="status-text">ENCRYPTED</div>
+                    <div class="timer" id="timer-3">Loading...</div>
+                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-3" placeholder="PASSWORD"></div>
+                    <button onclick="checkPass(3)">UNLOCK</button>
+                </div>
+                <!-- Reused Img 2 -->
+                <img src="https://i.imgur.com/evOMwgx.jpeg" id="asset-3">
+            </div>
+        </div>
+
+        <!-- #4 VIDEO -->
+        <div class="terminal-card wide-card">
+            <div class="header-bar"><span>VIDEO_LOG.MP4</span><span>HIGH SECURITY</span></div>
+            <div class="image-viewport">
+                <div class="lock-interface" id="lock-4">
+                    <div class="lock-icon">📹</div>
+                    <div class="status-text">VIDEO LOCKED</div>
+                    <div class="timer" id="timer-4">Loading...</div>
+                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-4" placeholder="PASSWORD"></div>
+                    <button onclick="checkPass(4)">UNLOCK</button>
+                </div>
+                <video src="https://i.imgur.com/9TChNZJ.mp4" id="asset-4" controls></video>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="debug-log" id="debug">System Initialized.</div>
+
+    <script>
+        // --- CONFIGURATION ---
+        // Using ISO Date format for better browser compatibility
+        // Times: 10:15, 10:30, 10:45, 11:00
+        const config = [
+            { id: 1, time: "2025-11-27T11:45:00", pass: "potato" },
+            { id: 2, time: "2025-11-27T12:00:00", pass: "banana" },
+            { id: 3, time: "2025-11-27T12:15:00", pass: "iloveyou" },
+            { id: 4, time: "2025-11-27T12:30:00", pass: "movie" }
+        ];
+
+        // --- CORE FUNCTIONS ---
+
+        function log(msg) {
+            document.getElementById('debug').innerText = "LOG: " + msg;
+            console.log(msg);
+        }
+
+        function unlock(id) {
+            const lock = document.getElementById('lock-' + id);
+            const asset = document.getElementById('asset-' + id);
+            
+            if (!lock || !asset) {
+                log("Error: Elements not found for ID " + id);
+                return;
+            }
+
+            if (lock.style.display === 'none') return; // Already unlocked
+
+            // Success Animation
+            lock.innerHTML = '<h2 style="color: #00ff41; animation: blink 0.2s infinite;">ACCESS GRANTED</h2>';
+            
+            setTimeout(() => {
+                lock.style.display = 'none';
+                asset.style.display = 'block';
+                log("Unlocked ID " + id);
+                
+                // If it's the video, try to play it
+                if(id === 4) {
+                    try { asset.play(); } catch(e) { console.log("Auto-play blocked by browser"); }
+                }
+            }, 1000);
+        }
+
+        function checkPass(id) {
+            const input = document.getElementById('input-' + id);
+            const item = config.find(i => i.id === id);
+            
+            if (!item) return;
+
+            if (input.value.toLowerCase().trim() === item.pass.toLowerCase()) {
+                unlock(id);
+            } else {
+                // Denied Animation
+                const oldPlaceholder = input.placeholder;
+                input.value = "";
+                input.placeholder = "DENIED";
+                input.style.borderColor = "red";
+                log("Failed login for ID " + id);
+                setTimeout(() => {
+                    input.placeholder = oldPlaceholder;
+                    input.style.borderColor = "var(--main-color)";
+                }, 1000);
+            }
+        }
+
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+
+            const nowTime = now.getTime();
+
+            config.forEach(item => {
+                const target = new Date(item.time).getTime();
+                const diff = target - nowTime;
+                const timerEl = document.getElementById('timer-' + item.id);
+
+                if (diff < 0) {
+                    // Time is up - Auto Unlock
+                    // Check if lock is still visible and doesn't say "ACCESS GRANTED"
+                    const lock = document.getElementById('lock-' + item.id);
+                    if (lock && lock.style.display !== 'none' && !lock.innerHTML.includes("GRANTED")) {
+                        unlock(item.id);
+                    }
+                    if (timerEl) timerEl.innerText = "OPEN";
+                } else {
+                    // Countdown
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    timerEl.innerText = 
+                        (h<10?"0"+h:h) + ":" + 
+                        (m<10?"0"+m:m) + ":" + 
+                        (s<10?"0"+s:s);
+                }
+            });
+        }
+
+        // Start Loop
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Listen for "Enter" key on all inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    // input-1 -> split -> "1" -> parseInt -> 1
+                    const id = parseInt(this.id.split('-')[1]); 
+                    checkPass(id);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
