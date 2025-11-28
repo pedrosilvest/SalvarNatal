@@ -106,14 +106,24 @@
         }
 
 
-        .container {
+        .layout-wrapper {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            z-index: 2;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
             max-width: 1400px;
+            z-index: 2;
+            gap: 40px; 
         }
+
+        .row-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            width: 100%;
+        }
+
 
         .terminal-card {
             border: 1px solid var(--hacker-green);
@@ -156,17 +166,19 @@
             width: 100%;
             position: relative;
             background: #050505;
+            overflow: hidden;
         }
 
         .wide-card .image-viewport {
             height: auto;
             aspect-ratio: 16/9;
+            overflow: hidden;
         }
 
         .image-viewport img, .image-viewport video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: none; 
             border: none;
         }
@@ -342,9 +354,11 @@
         }
 
         .tree-art { white-space: pre; color: var(--hacker-green); font-weight: bold; }
-        .tree-star { color: var(--xmas-red); animation: blink 1s infinite; }
+        
+ 
+        .tree-heart { color: var(--xmas-red); animation: blink 1.5s infinite; }
+        .tree-ines { color: var(--snow-white); animation: blink 1s infinite alternate; font-weight: 900; }
         .tree-bauble { color: var(--xmas-red); animation: blink 2s infinite alternate; }
-        .tree-bauble-2 { color: var(--snow-white); animation: blink 1.5s infinite alternate; }
         .tree-trunk { color: #555; }
         .tree-gift { color: var(--xmas-red); display: inline-block; animation: glitch 3s infinite; }
 
@@ -371,200 +385,213 @@
     </div>
     
     <div class="system-status">
-        <div>AGENT: <span class="agent-name">BALLERINA</span></div>
+        <div>AGENT: <span class="agent-name">SWEET BALLERINA</span></div>
         <div class="mission-text">MISSION: PROTECT THE MAGIC OF CHRISTMAS</div>
     </div>
 
-    <div class="container">
+
+    <div class="layout-wrapper">
         
 
-        <div class="terminal-card">
-            <div class="header-bar"><span>CRIME_FILE_00.JPG</span><span>DEC_01</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-1">
-                    <div class="lock-icon">🎄</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-1">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-1" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(1)">UNLOCK</button>
-                </div>
+        <div class="row-group">
 
-                <button class="view-btn" id="btn-1" onclick="viewImage(1)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/ZDaLPge.jpeg" id="asset-1">
+            <div class="terminal-card">
+                <div class="header-bar"><span>CRIME_FILE_00.JPG</span><span>DEC_01</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-1">
+                        <div class="lock-icon">🎄</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-1">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-1" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(1)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-1" onclick="viewImage(1)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/ZDaLPge.jpeg" id="asset-1">
+                </div>
+            </div>
+
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>CRIME_FILE_01.JPG</span><span>DEC_03</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-2">
+                        <div class="lock-icon">🎁</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-2">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-2" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(2)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-2" onclick="viewImage(2)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/FcvlQ77.jpeg" id="asset-2">
+                </div>
+            </div>
+
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>PROFILE_00.JPG</span><span>DEC_05</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-3">
+                        <div class="lock-icon">❄️</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-3">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-3" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(3)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-3" onclick="viewImage(3)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/Nzv3kav.jpeg" id="asset-3">
+                </div>
+            </div>
+
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>CRIME_FILE_02.JPG</span><span>DEC_07</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-4">
+                        <div class="lock-icon">☃️</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-4">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-4" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(4)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-4" onclick="viewImage(4)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/7wpTJCX.jpeg" id="asset-4">
+                </div>
             </div>
         </div>
 
 
-        <div class="terminal-card">
-            <div class="header-bar"><span>CRIME_FILE_01.JPG</span><span>DEC_03</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-2">
-                    <div class="lock-icon">🎁</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-2">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-2" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(2)">UNLOCK</button>
+        <div class="row-group">
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>CRIME_FILE_03.JPG</span><span>DEC_09</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-5">
+                        <div class="lock-icon">🍪</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-5">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-5" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(5)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-5" onclick="viewImage(5)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/UW6Miz7.jpeg" id="asset-5">
                 </div>
-                <button class="view-btn" id="btn-2" onclick="viewImage(2)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/FcvlQ77.jpeg" id="asset-2">
+            </div>
+
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>PROFILE_01.JPG</span><span>DEC_11</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-6">
+                        <div class="lock-icon">🦌</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-6">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-6" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(6)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-6" onclick="viewImage(6)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/WpKjuI4.jpeg" id="asset-6">
+                </div>
             </div>
         </div>
 
 
-        <div class="terminal-card">
-            <div class="header-bar"><span>PROFILE_00.JPG</span><span>DEC_05</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-3">
-                    <div class="lock-icon">❄️</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-3">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-3" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(3)">UNLOCK</button>
+        <div class="row-group">
+
+            <div class="terminal-card wide-card">
+                <div class="header-bar"><span>SCENE_RECORDING_00.MP4</span><span>DEC_13</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-7">
+                        <div class="lock-icon">🍬</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-7">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-7" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(7)">UNLOCK</button>
+                    </div>
+                    <video src="https://i.imgur.com/jrDroJd.mp4" id="asset-7" controls></video>
                 </div>
-                <button class="view-btn" id="btn-3" onclick="viewImage(3)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/Nzv3kav.jpeg" id="asset-3">
             </div>
         </div>
 
 
-        <div class="terminal-card">
-            <div class="header-bar"><span>CRIME_FILE_02.JPG</span><span>DEC_07</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-4">
-                    <div class="lock-icon">☃️</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-4">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-4" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(4)">UNLOCK</button>
+        <div class="row-group">
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>CRIME_FILE_04.JPG</span><span>DEC_15</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-8">
+                        <div class="lock-icon">🕯️</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-8">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-8" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(8)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-8" onclick="viewImage(8)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/5zWuDcE.png" id="asset-8">
                 </div>
-                <button class="view-btn" id="btn-4" onclick="viewImage(4)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/7wpTJCX.jpeg" id="asset-4">
+            </div>
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>CRIME_FILE_05.JPG</span><span>DEC_17</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-9">
+                        <div class="lock-icon">🌟</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-9">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-9" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(9)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-9" onclick="viewImage(9)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/btudnET.jpeg" id="asset-9">
+                </div>
+            </div>
+
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>PROFILE_02.JPG</span><span>DEC_19</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-10">
+                        <div class="lock-icon">🧦</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-10">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-10" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(10)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-10" onclick="viewImage(10)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/9SddX0g.jpeg" id="asset-10">
+                </div>
+            </div>
+
+            <div class="terminal-card">
+                <div class="header-bar"><span>CRIME_FILE_06.JPG</span><span>DEC_21</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-11">
+                        <div class="lock-icon">🥛</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-11">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-11" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(11)">UNLOCK</button>
+                    </div>
+                    <button class="view-btn" id="btn-11" onclick="viewImage(11)">[ OPEN VIEWER ]</button>
+                    <img src="https://i.imgur.com/U13mc3B.jpeg" id="asset-11">
+                </div>
             </div>
         </div>
 
 
-        <div class="terminal-card">
-            <div class="header-bar"><span>CRIME_FILE_03.JPG</span><span>DEC_09</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-5">
-                    <div class="lock-icon">🍪</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-5">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-5" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(5)">UNLOCK</button>
+        <div class="row-group">
+
+            <div class="terminal-card wide-card">
+                <div class="header-bar"><span>EVIDENCE_FOOTAGE_00.MP4</span><span>DEC_23</span></div>
+                <div class="image-viewport">
+                    <div class="lock-interface" id="lock-12">
+                        <div class="lock-icon">🎅</div>
+                        <div class="status-text">LOCKED</div>
+                        <div class="timer" id="timer-12">Loading...</div>
+                        <div class="command-line"><span class="prompt">></span><input type="password" id="input-12" placeholder="PASSWORD"></div>
+                        <button onclick="checkPass(12)">UNLOCK</button>
+                    </div>
+                    <video src="https://i.imgur.com/mAqwbWU.mp4" id="asset-12" controls></video>
                 </div>
-                <button class="view-btn" id="btn-5" onclick="viewImage(5)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/UW6Miz7.jpeg" id="asset-5">
-            </div>
-        </div>
-
-
-        <div class="terminal-card">
-            <div class="header-bar"><span>PROFILE_01.JPG</span><span>DEC_11</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-6">
-                    <div class="lock-icon">🦌</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-6">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-6" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(6)">UNLOCK</button>
-                </div>
-                <button class="view-btn" id="btn-6" onclick="viewImage(6)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/WpKjuI4.jpeg" id="asset-6">
-            </div>
-        </div>
-
-
-        <div class="terminal-card wide-card">
-            <div class="header-bar"><span>SCENE_RECORDING_00.MP4</span><span>DEC_13</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-7">
-                    <div class="lock-icon">🍬</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-7">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-7" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(7)">UNLOCK</button>
-                </div>
-                <video src="https://i.imgur.com/jrDroJd.mp4" id="asset-7" controls></video>
-            </div>
-        </div>
-
-
-        <div class="terminal-card">
-            <div class="header-bar"><span>CRIME_FILE_04.JPG</span><span>DEC_15</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-8">
-                    <div class="lock-icon">🕯️</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-8">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-8" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(8)">UNLOCK</button>
-                </div>
-                <button class="view-btn" id="btn-8" onclick="viewImage(8)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/5zWuDcE.png" id="asset-8">
-            </div>
-        </div>
-
-
-        <div class="terminal-card">
-            <div class="header-bar"><span>CRIME_FILE_05.JPG</span><span>DEC_17</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-9">
-                    <div class="lock-icon">🌟</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-9">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-9" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(9)">UNLOCK</button>
-                </div>
-                <button class="view-btn" id="btn-9" onclick="viewImage(9)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/btudnET.jpeg" id="asset-9">
-            </div>
-        </div>
-
-
-        <div class="terminal-card">
-            <div class="header-bar"><span>PROFILE_02.JPG</span><span>DEC_19</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-10">
-                    <div class="lock-icon">🧦</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-10">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-10" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(10)">UNLOCK</button>
-                </div>
-                <button class="view-btn" id="btn-10" onclick="viewImage(10)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/9SddX0g.jpeg" id="asset-10">
-            </div>
-        </div>
-
-
-        <div class="terminal-card">
-            <div class="header-bar"><span>CRIME_FILE_06.JPG</span><span>DEC_21</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-11">
-                    <div class="lock-icon">🥛</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-11">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-11" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(11)">UNLOCK</button>
-                </div>
-                <button class="view-btn" id="btn-11" onclick="viewImage(11)">[ OPEN VIEWER ]</button>
-                <img src="https://i.imgur.com/U13mc3B.jpeg" id="asset-11">
-            </div>
-        </div>
-
-
-        <div class="terminal-card wide-card">
-            <div class="header-bar"><span>EVIDENCE_FOOTAGE_00.MP4</span><span>DEC_23</span></div>
-            <div class="image-viewport">
-                <div class="lock-interface" id="lock-12">
-                    <div class="lock-icon">🎅</div>
-                    <div class="status-text">LOCKED</div>
-                    <div class="timer" id="timer-12">Loading...</div>
-                    <div class="command-line"><span class="prompt">></span><input type="password" id="input-12" placeholder="PASSWORD"></div>
-                    <button onclick="checkPass(12)">UNLOCK</button>
-                </div>
-                <video src="https://i.imgur.com/mAqwbWU.mp4" id="asset-12" controls></video>
             </div>
         </div>
 
@@ -581,12 +608,12 @@
 
     <div class="hacker-tree-container">
 <div class="tree-art">
-       <span class="tree-star">★</span>
+       <span class="tree-heart">♥</span>
       / \
      / <span class="tree-bauble">o</span> \
-    / <span class="tree-bauble-2">+</span> <span class="tree-bauble">o</span> \
-   /<span class="tree-bauble">o</span> <span class="tree-bauble-2">*</span> <span class="tree-bauble">o</span> <span class="tree-bauble">+</span>\
-  / <span class="tree-bauble-2">+</span> <span class="tree-bauble">o</span> <span class="tree-bauble-2">*</span> <span class="tree-bauble">o</span> \
+    / <span class="tree-ines">I</span> <span class="tree-bauble">o</span> \
+   /<span class="tree-bauble">o</span> <span class="tree-ines">N</span> <span class="tree-bauble">o</span> <span class="tree-ines">E</span>\
+  / <span class="tree-ines">S</span> <span class="tree-bauble">o</span> <span class="tree-bauble">*</span> <span class="tree-bauble">o</span> \
  |||||||||||||
      <span class="tree-trunk">[ ]</span>
 <span class="tree-gift">[=]</span> <span class="tree-gift">[#]</span> <span class="tree-gift">[+]</span> <span class="tree-gift">[=]</span>
@@ -597,24 +624,45 @@
 
     <script>
 
-        function createSnow() {
-            const container = document.getElementById('snow-container');
-            const characters = ['❄', '*', '1', '0', '+'];
-            setInterval(() => {
-                const flake = document.createElement('div');
-                flake.classList.add('snowflake');
-                flake.innerText = characters[Math.floor(Math.random() * characters.length)];
-                flake.style.left = Math.random() * 100 + 'vw';
-                flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                flake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                const rand = Math.random();
-                if(rand > 0.9) flake.style.color = 'var(--xmas-red)';
-                else if(rand > 0.8) flake.style.color = 'var(--snow-white)';
-                container.appendChild(flake);
-                setTimeout(() => { flake.remove(); }, 5000);
-            }, 100);
+ function createSnow() {
+    const container = document.getElementById('snow-container');
+
+    const whiteChars = ['❄', '*', '•', '✦', '✧'];
+    const redChars   = ['I', 'N', 'E', 'S'];
+    const greenChars = ['♥']; 
+
+    setInterval(() => {
+        const flake = document.createElement('div');
+        flake.classList.add('snowflake');
+
+        const r = Math.random();
+
+        let charSet, color;
+
+        if (r > 0.95) {                       
+            charSet = greenChars;
+            color = 'var(--hacker-green)';
+            flake.classList.add('tree-heart');
+        } else if (r > 0.85) {                
+            charSet = redChars;
+            color = 'var(--xmas-red)';
+        } else {                              
+            charSet = whiteChars;
+            color = 'var(--snow-white)';
         }
-        createSnow();
+
+        flake.innerText = charSet[Math.floor(Math.random() * charSet.length)];
+        flake.style.left = Math.random() * 100 + 'vw';
+        flake.style.fontSize = (Math.random() * 10 + 14) + 'px';
+        flake.style.animationDuration = (Math.random() * 4 + 6) + 's';
+        flake.style.color = color;
+
+        container.appendChild(flake);
+        setTimeout(() => flake.remove(), 11000);
+    }, 150);
+}
+
+createSnow();
 
 
         const config = [
@@ -654,7 +702,6 @@
         }
 
 
-
         function unlock(id) {
             const lock = document.getElementById('lock-' + id);
             const asset = document.getElementById('asset-' + id);
@@ -662,7 +709,6 @@
             
             if (!lock || !asset) return;
             if (lock.style.display === 'none') return; 
-
 
             lock.innerHTML = '<h2 style="color: var(--hacker-green);">ACCESS GRANTED</h2><div style="color:var(--xmas-red)">MERRY CHRISTMAS</div>';
             
@@ -672,7 +718,6 @@
 
                 if (btn) btn.style.display = 'block';
                 
-
                 if(id === 7 || id === 12) { try { asset.play(); } catch(e) {} }
             }, 1500);
         }
@@ -689,10 +734,11 @@
                 input.value = "";
                 input.placeholder = "NAUGHTY LIST";
                 input.style.borderColor = "var(--xmas-red)";
+
                 setTimeout(() => {
                     input.placeholder = oldP;
                     input.style.borderColor = "";
-                }, 1000);
+                }, 3000);
             }
         }
 
@@ -718,7 +764,6 @@
                 const timerEl = document.getElementById('timer-' + item.id);
 
                 if (diff < 0) {
-
                     const lock = document.getElementById('lock-' + item.id);
                     if (lock && lock.style.display !== 'none' && !lock.innerHTML.includes("GRANTED")) {
                         unlock(item.id);
